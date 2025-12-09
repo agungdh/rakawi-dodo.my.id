@@ -5,7 +5,7 @@ import { ContentListComponent } from '../../components/content-list/content-list
   selector: 'app-manhwa',
   standalone: true,
   imports: [ContentListComponent],
-  template: `<app-content-list contentType="manhwa" title="MANHWA" subtitle="Solo Leveling and more..." />`,
-  styles: [`:host { display: flex; flex-direction: column; flex-grow: 1; }`]
+  templateUrl: './manhwa.component.html',
+  styleUrl: './manhwa.component.css'
 })
 export class ManhwaComponent { }
