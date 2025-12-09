@@ -1,5 +1,6 @@
 :host {
     display: block;
+    flex-grow: 1;
 }
 
 .animate-fade-in-up {
