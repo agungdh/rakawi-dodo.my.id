@@ -3,73 +3,73 @@
     <div class="max-w-7xl mx-auto flex items-center justify-between">
         <!-- Logo -->
         <a routerLink="/" (click)="closeMenu()"
-            class="text-2xl font-black tracking-tighter text-[var(--color-cyber-purple)] hover:text-pink-500 transition-colors z-50 relative">
+            class="text-2xl font-black tracking-tighter text-[var(--color-cyber-purple)] hover:text-pink-500 transition-colors relative z-[120]"
+            [class.text-white]="isMobileMenuOpen()">
             RAKA<span class="text-pink-500">WI</span>
         </a>
 
         <!-- Hamburger Button (Mobile) -->
         <button (click)="toggleMenu()"
-            class="md:hidden z-50 relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus:outline-none group">
+            class="md:hidden relative z-[120] w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus:outline-none group">
             <span
-                class="block w-6 h-0.5 bg-[var(--color-cyber-purple)] transition-all duration-300 group-hover:bg-pink-500"
-                [class.rotate-45]="isMobileMenuOpen()" [class.translate-y-2]="isMobileMenuOpen()"></span>
+                class="block w-8 h-1 rounded-full transition-all duration-300 group-hover:bg-pink-500 group-hover:w-10"
+                [class.bg-[var(--color-cyber-purple)]]="!isMobileMenuOpen()" [class.bg-white]="isMobileMenuOpen()"
+                [class.rotate-45]="isMobileMenuOpen()" [class.translate-y-2.5]="isMobileMenuOpen()"></span>
             <span
-                class="block w-6 h-0.5 bg-[var(--color-cyber-purple)] transition-all duration-300 group-hover:bg-pink-500"
-                [class.opacity-0]="isMobileMenuOpen()"></span>
+                class="block w-6 h-1 rounded-full transition-all duration-300 group-hover:bg-pink-500 group-hover:w-10"
+                [class.bg-[var(--color-cyber-purple)]]="!isMobileMenuOpen()" [class.bg-white]="isMobileMenuOpen()"
+                [class.opacity-0]="isMobileMenuOpen()" [class.translate-x-full]="isMobileMenuOpen()"></span>
             <span
-                class="block w-6 h-0.5 bg-[var(--color-cyber-purple)] transition-all duration-300 group-hover:bg-pink-500"
-                [class.-rotate-45]="isMobileMenuOpen()" [class.-translate-y-2]="isMobileMenuOpen()"></span>
+                class="block w-8 h-1 rounded-full transition-all duration-300 group-hover:bg-pink-500 group-hover:w-10"
+                [class.bg-[var(--color-cyber-purple)]]="!isMobileMenuOpen()" [class.bg-white]="isMobileMenuOpen()"
+                [class.-rotate-45]="isMobileMenuOpen()" [class.-translate-y-2.5]="isMobileMenuOpen()"></span>
         </button>
 
         <!-- Menu Desktop -->
         <div class="hidden md:flex gap-8 items-center font-bold text-sm tracking-widest uppercase">
-            <a routerLink="/anime" routerLinkActive="text-pink-500"
-                class="hover:text-pink-500 transition-colors relative group">
-                Anime
-                <span
-                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a routerLink="/manga" routerLinkActive="text-pink-500"
-                class="hover:text-pink-500 transition-colors relative group">
-                Manga
-                <span
-                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a routerLink="/manhwa" routerLinkActive="text-pink-500"
-                class="hover:text-pink-500 transition-colors relative group">
-                Manhwa
-                <span
-                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a routerLink="/manhua" routerLinkActive="text-pink-500"
-                class="hover:text-pink-500 transition-colors relative group">
-                Manhua
-                <span
-                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a routerLink="/biodata" routerLinkActive="text-pink-500"
-                class="hover:text-pink-500 transition-colors relative group">
-                Biodata
-                <span
-                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
-            </a>
+            <ng-container *ngFor="let item of ['Anime', 'Manga', 'Manhwa', 'Manhua', 'Biodata']">
+                <a [routerLink]="'/' + item.toLowerCase()" routerLinkActive="text-pink-500 scale-110"
+                    class="hover:text-pink-500 transition-all duration-300 relative group">
+                    {{ item }}
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </ng-container>
         </div>
     </div>
 
-    <!-- Mobile Menu Overlay -->
-    <div class="fixed inset-0 bg-white/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 text-2xl font-black uppercase tracking-widest transition-all duration-500 md:hidden"
+    <!-- Mobile Menu Overlay (Reset & Fixed) -->
+    <div class="fixed inset-0 z-[100] bg-[var(--color-cyber-purple)] text-white transition-all duration-300 md:hidden flex flex-col pt-24 px-8 overflow-y-auto"
         [class.opacity-0]="!isMobileMenuOpen()" [class.pointer-events-none]="!isMobileMenuOpen()"
         [class.opacity-100]="isMobileMenuOpen()" [class.pointer-events-auto]="isMobileMenuOpen()">
 
-        <a routerLink="/anime" (click)="closeMenu()"
-            class="hover:text-pink-500 transition-transform hover:scale-110">Anime</a>
-        <a routerLink="/manga" (click)="closeMenu()"
-            class="hover:text-pink-500 transition-transform hover:scale-110">Manga</a>
-        <a routerLink="/manhwa" (click)="closeMenu()"
-            class="hover:text-pink-500 transition-transform hover:scale-110">Manhwa</a>
-        <a routerLink="/manhua" (click)="closeMenu()"
-            class="hover:text-pink-500 transition-transform hover:scale-110">Manhua</a>
-        <a routerLink="/biodata" (click)="closeMenu()"
-            class="hover:text-pink-500 transition-transform hover:scale-110">Biodata</a>
+        <!-- Background Decorations -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-pink-500/20 rounded-full blur-[100px] pointer-events-none">
+        </div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[100px] pointer-events-none">
+        </div>
+
+        <!-- Menu Header -->
+        <div class="mb-12 border-b border-white/10 pb-4">
+            <h2 class="text-3xl font-black tracking-tighter text-white/90">MENU</h2>
+            <p class="text-pink-400 text-xs font-bold tracking-[0.5em] uppercase mt-1">Navigation System</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="flex flex-col gap-6">
+            <ng-container *ngFor="let item of ['Anime', 'Manga', 'Manhwa', 'Manhua', 'Biodata']">
+                <a [routerLink]="'/' + item.toLowerCase()" (click)="closeMenu()"
+                    class="group flex items-center justify-between text-2xl font-bold uppercase tracking-widest text-white/80 hover:text-white transition-all hover:pl-4">
+                    <span>{{ item }}</span>
+                    <span class="opacity-0 group-hover:opacity-100 text-pink-500 transition-opacity">→</span>
+                </a>
+            </ng-container>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="mt-auto py-12 text-center opacity-50 text-xs">
+            <p>SYSTEM.STATUS: ONLINE</p>
+            <p class="mt-2">Rakawi Dodo // Wibu Site</p>
+        </div>
     </div>
 </nav>
