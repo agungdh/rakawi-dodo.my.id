@@ -1,0 +1,75 @@
+<nav
+    class="sticky top-0 z-50 bg-white/60 backdrop-blur-md border-b border-white/20 px-6 py-4 shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <!-- Logo -->
+        <a routerLink="/" (click)="closeMenu()"
+            class="text-2xl font-black tracking-tighter text-[var(--color-cyber-purple)] hover:text-pink-500 transition-colors z-50 relative">
+            RAKA<span class="text-pink-500">WI</span>
+        </a>
+
+        <!-- Hamburger Button (Mobile) -->
+        <button (click)="toggleMenu()"
+            class="md:hidden z-50 relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus:outline-none group">
+            <span
+                class="block w-6 h-0.5 bg-[var(--color-cyber-purple)] transition-all duration-300 group-hover:bg-pink-500"
+                [class.rotate-45]="isMobileMenuOpen()" [class.translate-y-2]="isMobileMenuOpen()"></span>
+            <span
+                class="block w-6 h-0.5 bg-[var(--color-cyber-purple)] transition-all duration-300 group-hover:bg-pink-500"
+                [class.opacity-0]="isMobileMenuOpen()"></span>
+            <span
+                class="block w-6 h-0.5 bg-[var(--color-cyber-purple)] transition-all duration-300 group-hover:bg-pink-500"
+                [class.-rotate-45]="isMobileMenuOpen()" [class.-translate-y-2]="isMobileMenuOpen()"></span>
+        </button>
+
+        <!-- Menu Desktop -->
+        <div class="hidden md:flex gap-8 items-center font-bold text-sm tracking-widest uppercase">
+            <a routerLink="/anime" routerLinkActive="text-pink-500"
+                class="hover:text-pink-500 transition-colors relative group">
+                Anime
+                <span
+                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a routerLink="/manga" routerLinkActive="text-pink-500"
+                class="hover:text-pink-500 transition-colors relative group">
+                Manga
+                <span
+                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a routerLink="/manhwa" routerLinkActive="text-pink-500"
+                class="hover:text-pink-500 transition-colors relative group">
+                Manhwa
+                <span
+                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a routerLink="/manhua" routerLinkActive="text-pink-500"
+                class="hover:text-pink-500 transition-colors relative group">
+                Manhua
+                <span
+                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a routerLink="/biodata" routerLinkActive="text-pink-500"
+                class="hover:text-pink-500 transition-colors relative group">
+                Biodata
+                <span
+                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-500 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="fixed inset-0 bg-white/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 text-2xl font-black uppercase tracking-widest transition-all duration-500 md:hidden"
+        [class.opacity-0]="!isMobileMenuOpen()" [class.pointer-events-none]="!isMobileMenuOpen()"
+        [class.opacity-100]="isMobileMenuOpen()" [class.pointer-events-auto]="isMobileMenuOpen()">
+
+        <a routerLink="/anime" (click)="closeMenu()"
+            class="hover:text-pink-500 transition-transform hover:scale-110">Anime</a>
+        <a routerLink="/manga" (click)="closeMenu()"
+            class="hover:text-pink-500 transition-transform hover:scale-110">Manga</a>
+        <a routerLink="/manhwa" (click)="closeMenu()"
+            class="hover:text-pink-500 transition-transform hover:scale-110">Manhwa</a>
+        <a routerLink="/manhua" (click)="closeMenu()"
+            class="hover:text-pink-500 transition-transform hover:scale-110">Manhua</a>
+        <a routerLink="/biodata" (click)="closeMenu()"
+            class="hover:text-pink-500 transition-transform hover:scale-110">Biodata</a>
+    </div>
+</nav>
