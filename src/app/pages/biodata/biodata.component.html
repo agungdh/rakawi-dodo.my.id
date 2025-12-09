@@ -1,5 +1,71 @@
-<div class="pt-20 min-h-screen text-center">
-    <h1 class="text-6xl font-black text-[var(--color-cyber-purple)] mb-4">BIODATA</h1>
-    <p class="text-xl opacity-60">Name: Rakawi Dodo</p>
-    <p class="text-xl opacity-60">Role: Professional Wibu</p>
+<div class="pt-20 pb-12 px-6 max-w-4xl mx-auto flex-grow flex flex-col items-center" *ngIf="biodata(); else loading">
+    <!-- Avatar -->
+    <div
+        class="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-white/30 shadow-2xl mb-8 group">
+        <img [src]="biodata()?.avatar" alt="Avatar"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+    </div>
+
+    <!-- Name & Role -->
+    <div class="text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-black text-[var(--color-cyber-purple)] mb-2 tracking-tight">{{
+            biodata()?.name }}</h1>
+        <p
+            class="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600 animate-pulse">
+            {{ biodata()?.role }}</p>
+    </div>
+
+    <!-- About -->
+    <div class="bg-white/40 backdrop-blur-md rounded-2xl p-8 border border-white/30 shadow-lg text-center mb-12 w-full">
+        <p class="text-xl leading-relaxed text-[var(--color-text-main)] opacity-80 font-medium">
+            "{{ biodata()?.description }}"
+        </p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full mb-12">
+        <div *ngFor="let stat of biodata()?.stats"
+            class="bg-white/30 backdrop-blur-sm p-4 rounded-xl text-center border border-white/20 hover:scale-105 transition-transform duration-300">
+            <div class="text-3xl font-black text-pink-600 mb-1">{{ stat.value }}</div>
+            <div class="text-xs font-bold uppercase tracking-widest text-[var(--color-cyber-purple)] opacity-60">{{
+                stat.label }}</div>
+        </div>
+    </div>
+
+    <!-- Favorites -->
+    <div class="w-full">
+        <h3 class="text-2xl font-black text-[var(--color-cyber-purple)] mb-6 text-center uppercase tracking-widest">
+            Current Favorites</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-[var(--color-cyber-purple)] text-white p-6 rounded-xl relative overflow-hidden group">
+                <div
+                    class="absolute -right-4 -top-4 text-8xl opacity-10 rotate-12 transition-transform group-hover:rotate-0">
+                    📺</div>
+                <div class="text-sm font-bold opacity-60 uppercase mb-1">Top Anime</div>
+                <div class="text-xl font-bold">{{ biodata()?.favorites?.anime }}</div>
+            </div>
+            <div class="bg-[var(--color-cyber-purple)] text-white p-6 rounded-xl relative overflow-hidden group">
+                <div
+                    class="absolute -right-4 -top-4 text-8xl opacity-10 rotate-12 transition-transform group-hover:rotate-0">
+                    📚</div>
+                <div class="text-sm font-bold opacity-60 uppercase mb-1">Top Manga</div>
+                <div class="text-xl font-bold">{{ biodata()?.favorites?.manga }}</div>
+            </div>
+            <div
+                class="bg-gradient-to-br from-pink-500 to-purple-600 text-white p-6 rounded-xl relative overflow-hidden group">
+                <div
+                    class="absolute -right-4 -top-4 text-8xl opacity-20 rotate-12 transition-transform group-hover:scale-110">
+                    ❤️</div>
+                <div class="text-sm font-bold opacity-80 uppercase mb-1">Waifu</div>
+                <div class="text-xl font-bold">{{ biodata()?.favorites?.character }}</div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<ng-template #loading>
+    <div class="flex-grow flex items-center justify-center">
+        <div class="animate-spin text-4xl">🌸</div>
+    </div>
+</ng-template>

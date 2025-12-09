@@ -1,0 +1,89 @@
+<div class="pt-20 pb-12 px-6 max-w-7xl mx-auto flex-grow flex flex-col">
+    <!-- Header -->
+    <div class="text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-black text-[var(--color-cyber-purple)] mb-4 tracking-tight uppercase">{{
+            title }}</h1>
+        <p class="text-xl opacity-60">{{ subtitle }}</p>
+    </div>
+
+    <!-- Controls (Search & Filter) -->
+    <div class="flex flex-col md:flex-row gap-4 mb-8 justify-between items-center">
+        <!-- Search -->
+        <div class="w-full md:w-1/3 relative group">
+            <input type="text" [ngModel]="searchQuery()" (ngModelChange)="onSearchChange($event)"
+                placeholder="Search title..."
+                class="w-full bg-white/40 backdrop-blur-sm border border-white/30 rounded-full py-3 px-6 pl-12 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all font-medium text-[var(--color-text-main)] placeholder-gray-500">
+            <span class="absolute left-4 top-3.5 text-gray-500">🔍</span>
+        </div>
+
+        <!-- Tag Cloud -->
+        <div class="flex flex-wrap gap-2 justify-center md:justify-end">
+            <button *ngFor="let tag of availableTags()" (click)="selectTag(tag)"
+                class="px-4 py-1.5 rounded-full text-sm font-bold transition-all border border-transparent" [ngClass]="{
+          'bg-pink-500 text-white shadow-lg scale-105': selectedTag() === tag,
+          'bg-white/40 hover:bg-white/60 hover:scale-105 text-[var(--color-cyber-purple)]': selectedTag() !== tag
+        }">
+                #{{ tag }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div *ngFor="let item of paginatedItems()"
+            class="group relative bg-white/30 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 hover:shadow-2xl hover:shadow-pink-500/20 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
+            <!-- Image Container -->
+            <div class="relative h-64 overflow-hidden">
+                <img [src]="item.image" [alt]="item.title"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                </div>
+                <div
+                    class="absolute top-3 right-3 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm border border-white/20">
+                    ⭐ {{ item.rating }}
+                </div>
+                <div
+                    class="absolute bottom-3 left-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+                    <span class="bg-pink-500 text-white px-2 py-0.5 rounded text-xs font-bold">{{ item.status }}</span>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6 flex-grow flex flex-col">
+                <h3
+                    class="text-xl font-black text-[var(--color-cyber-purple)] mb-2 leading-tight group-hover:text-pink-600 transition-colors line-clamp-2">
+                    {{ item.title }}</h3>
+
+                <div class="mt-auto pt-4 flex flex-wrap gap-2">
+                    <span *ngFor="let tag of item.tags"
+                        class="text-xs font-bold text-gray-500 bg-white/50 px-2 py-1 rounded">#{{ tag }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="paginatedItems().length === 0" class="text-center py-20 opacity-50">
+        <div class="text-6xl mb-4">🍂</div>
+        <p class="text-xl font-bold">No results found.</p>
+        <p>Try searching for something else, wibu-kun.</p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-center items-center gap-4 mt-auto" *ngIf="totalPages() > 1">
+        <button (click)="setPage(currentPage() - 1)" [disabled]="currentPage() === 1"
+            class="w-10 h-10 rounded-full flex items-center justify-center bg-white/40 hover:bg-white/60 disabled:opacity-30 disabled:cursor-not-allowed transition-all font-bold">
+            ←
+        </button>
+
+        <span class="font-bold tracking-widest text-[var(--color-cyber-purple)]">
+            PAGE {{ currentPage() }} / {{ totalPages() }}
+        </span>
+
+        <button (click)="setPage(currentPage() + 1)" [disabled]="currentPage() === totalPages()"
+            class="w-10 h-10 rounded-full flex items-center justify-center bg-white/40 hover:bg-white/60 disabled:opacity-30 disabled:cursor-not-allowed transition-all font-bold">
+            →
+        </button>
+    </div>
+</div>
